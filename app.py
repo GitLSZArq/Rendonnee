@@ -44,7 +44,7 @@ def init_db(conn):
             butane_to_add REAL NOT NULL,
             propane_to_add REAL NOT NULL,
             client_name TEXT,
-            FOREIGN KEY(cartridge_type_id) REFERENCES cartridge_types(id)
+            
         )
     ''')
     conn.commit()
