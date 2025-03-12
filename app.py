@@ -300,7 +300,7 @@ def main():
             if st.button("Supprimer ce type"):
                 delete_cartridge_type(conn, delete_id)
                 st.success("Type supprimé avec succès!")
-                st.experimental_rerun()
+                # st.experimental_rerun()
 
     
     elif menu == "Historique":
@@ -326,7 +326,7 @@ def main():
                 if st.button("Supprimer la transaction"):
                     delete_transaction(conn, selected_trans_id)
                     st.success("Transaction supprimée.")
-                    st.experimental_rerun()
+                    # st.experimental_rerun()
             
             with col2:
                 # Formulaire de modification
@@ -351,7 +351,7 @@ def main():
                                                new_gas_mass, new_missing_gas, new_butane_to_add, 
                                                new_propane_to_add, new_client_name)
                             st.success("Transaction mise à jour!")
-                            st.experimental_rerun()
+                            # st.experimental_rerun()
 
 if __name__ == '__main__':
     main()
