@@ -34,7 +34,7 @@ def init_db(conn):
     # Table pour l'historique des transactions, avec nom du client
     c.execute('''
         CREATE TABLE IF NOT EXISTS transactions (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id SERIAL PRIMARY KEY,
             date TEXT NOT NULL,
             cartridge_type_id INTEGER NOT NULL,
             color TEXT NOT NULL,
