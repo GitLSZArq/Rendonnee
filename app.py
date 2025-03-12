@@ -3,6 +3,7 @@ import sqlite3
 import pandas as pd
 from datetime import datetime
 import psycopg2
+import zoneinfo
 
 st.set_page_config(layout="wide")
 
@@ -105,7 +106,12 @@ def delete_cartridge_type(conn, type_id):
 def add_transaction(conn, cartridge_type_id, color, measured_weight, gas_mass, missing_gas, butane_to_add, propane_to_add, client_name):
     """Ajoute une transaction dans la base."""
     c = conn.cursor()
-    date_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    # Create a zone for France (Paris)
+    tz_paris = zoneinfo.ZoneInfo("Europe/Paris")
+    # Get local time in that zone
+    date_str = datetime.now(tz_paris).strftime("%Y-%m-%d %H:%M:%S")
+    
+    # date_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     c.execute('''
         INSERT INTO transactions 
         (date, cartridge_type_id, color, measured_weight, gas_mass, missing_gas, butane_to_add, propane_to_add, client_name)
