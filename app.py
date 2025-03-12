@@ -109,9 +109,10 @@ def add_transaction(conn, cartridge_type_id, color, measured_weight, gas_mass, m
     c.execute('''
         INSERT INTO transactions 
         (date, cartridge_type_id, color, measured_weight, gas_mass, missing_gas, butane_to_add, propane_to_add, client_name)
-        VALUES (%s, %s, %s, %s, %s, %s)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
     ''', (date_str, cartridge_type_id, color, measured_weight, gas_mass, missing_gas, butane_to_add, propane_to_add, client_name))
     conn.commit()
+
 
 def get_transactions(conn):
     """Retourne toutes les transactions sous forme de DataFrame."""
