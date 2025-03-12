@@ -65,7 +65,7 @@ def add_default_cartridge_types(conn):
         c.executemany('''
             INSERT INTO cartridge_types 
             (name, full_gas_mass, empty_mass, color, butane, propane) 
-            VALUES (?, ?, ?, ?, ?, ?)
+            VALUES (%s, %s, %s, %s, %s, %s)
         ''', default_types)
         conn.commit()
 
@@ -83,7 +83,7 @@ def add_cartridge_type(conn, name, full_gas_mass, empty_mass, color, butane, pro
     c.execute('''
         INSERT INTO cartridge_types 
         (name, full_gas_mass, empty_mass, color, butane, propane) 
-        VALUES (?, ?, ?, ?, ?, ?)
+        VALUES (%s, %s, %s, %s, %s, %s)
     ''', (name, full_gas_mass, empty_mass, color, butane, propane))
     conn.commit()
 
@@ -92,14 +92,14 @@ def update_cartridge_type(conn, id, name, full_gas_mass, empty_mass, color, buta
     c = conn.cursor()
     c.execute('''
         UPDATE cartridge_types 
-        SET name=?, full_gas_mass=?, empty_mass=?, color=?, butane=?, propane=? 
-        WHERE id=?
+        SET name=%s, full_gas_mass=%s, empty_mass=%s, color=%s, butane=%s, propane=%s 
+        WHERE id=%s
     ''', (name, full_gas_mass, empty_mass, color, butane, propane, id))
     conn.commit()
 
 def delete_cartridge_type(conn, type_id):
     c = conn.cursor()
-    c.execute("DELETE FROM cartridge_types WHERE id=?", (type_id,))
+    c.execute("DELETE FROM cartridge_types WHERE id=%s", (type_id,))
     conn.commit()
 
 
@@ -110,7 +110,7 @@ def add_transaction(conn, cartridge_type_id, color, measured_weight, gas_mass, m
     c.execute('''
         INSERT INTO transactions 
         (date, cartridge_type_id, color, measured_weight, gas_mass, missing_gas, butane_to_add, propane_to_add, client_name)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (%s, %s, %s, %s, %s, %s)
     ''', (date_str, cartridge_type_id, color, measured_weight, gas_mass, missing_gas, butane_to_add, propane_to_add, client_name))
     conn.commit()
 
@@ -135,7 +135,7 @@ def get_transactions(conn):
 def delete_transaction(conn, transaction_id):
     """Supprime une transaction par son ID."""
     c = conn.cursor()
-    c.execute("DELETE FROM transactions WHERE id=?", (transaction_id,))
+    c.execute("DELETE FROM transactions WHERE id=%s", (transaction_id,))
     conn.commit()
 
 def update_transaction(conn, transaction_id, new_date, new_measured_weight, 
@@ -145,9 +145,9 @@ def update_transaction(conn, transaction_id, new_date, new_measured_weight,
     c = conn.cursor()
     c.execute('''
         UPDATE transactions
-        SET date=?, measured_weight=?, gas_mass=?, missing_gas=?, 
-            butane_to_add=?, propane_to_add=?, client_name=?
-        WHERE id=?
+        SET date=%s, measured_weight=%s, gas_mass=%s, missing_gas=%s, 
+            butane_to_add=%s, propane_to_add=%s, client_name=%s
+        WHERE id=%s
     ''', (new_date, new_measured_weight, new_gas_mass, new_missing_gas, 
           new_butane_to_add, new_propane_to_add, new_client_name, transaction_id))
     conn.commit()
