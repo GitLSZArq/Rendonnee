@@ -43,8 +43,7 @@ def init_db(conn):
             missing_gas REAL NOT NULL,
             butane_to_add REAL NOT NULL,
             propane_to_add REAL NOT NULL,
-            client_name TEXT,
-            
+            client_name TEXT
         )
     ''')
     conn.commit()
